@@ -1,5 +1,6 @@
-/* Write your T-SQL query statement below */
+# Write your MySQL query statement below
 
 
-select fo.follower as follower, count(distinct f.follower) as num from follow fo join follow f on 
-fo.follower=f.followee group by fo.follower order by fo.follower
+select a.follower as follower, count(distinct b.follower) as num from 
+follow a join follow b on 
+a.follower=b.followee group by a.follower order by a.follower
