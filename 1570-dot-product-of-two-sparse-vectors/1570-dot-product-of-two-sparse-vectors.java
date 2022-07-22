@@ -3,20 +3,32 @@ import java.util.Map;
 
 class SparseVector {
     HashMap<Integer, Integer> hash = new HashMap<>();
+    int numKeys = 0;
     SparseVector(int[] nums) {
         for(int i=0; i<nums.length; i++){
-            if(nums[i]>0)
+            if(nums[i]>0){
                 hash.put(i, nums[i]);
+                this.numKeys++;
+            }
         }
     }
     
 	// Return the dotProduct of two sparse vectors
     public int dotProduct(SparseVector vec) {
         int result = 0;
-        for(Map.Entry<Integer, Integer> entry:vec.hash.entrySet()){
+        SparseVector parseThis, otherOne;
+        if(vec.numKeys<=this.numKeys){
+            parseThis = vec;
+            otherOne = this;
+        }
+        else{
+            parseThis = this;
+            otherOne = vec;
+        }
+        for(Map.Entry<Integer, Integer> entry:parseThis.hash.entrySet()){
             int key = entry.getKey(), value = entry.getValue();
-            if(this.hash.containsKey(key))
-                result += this.hash.get(key)*value;
+            if(otherOne.hash.containsKey(key))
+                result += otherOne.hash.get(key)*value;
         }
         return result;
     }
